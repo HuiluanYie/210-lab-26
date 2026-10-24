@@ -107,63 +107,72 @@ int main() {
             case 1: {
                 // list:
                 // Start timing
-                start = high_resolution_clock::now();
+                auto start = high_resolution_clock::now();
                 l.sort();
                 // End timing
-                end = high_resolution_clock::now();
+                auto end = high_resolution_clock::now();
                 // Calculate duration
                 auto lst_sort = duration_cast<nanoseconds>(end - start);
-                results[1][i] = vec_sort.count();
+                results[1][i] = lst_sort.count();
             }
-        
-
-        
-        
-        // set:
-        // the set's value is -1 since a set is already sorted.
-        results[1][i] = -1;
+            case 2: {
+                // set:
+                // the set's value is -1 since a set is already sorted.
+                results[1][i] = -1;
+            }
+        }
     }
 
 
     //INSERTING
-    // vector:
-    // Start timing
-    start = high_resolution_clock::now();
-    auto v_it = v.begin();
-    // make the iterater point to the middle
-    for (int i = 0; i <= v.size() / 2; i++)
+    for (int i = 0; i < COLS; i++)
     {
-        v_it++;
+        // Start timing
+        auto start = high_resolution_clock::now();
+        switch(i) {
+            case 0: {
+                // vector:
+                auto v_it = v.begin();
+                // make the iterater point to the middle
+                for (int i = 0; i <= v.size() / 2; i++)
+                {
+                    v_it++;
+                }
+                v.insert(v_it, TESTCODE);
+                // End timing
+                auto end = high_resolution_clock::now();
+                // Calculate duration
+                auto vec_insert = duration_cast<nanoseconds>(end - start);
+                results[2][i] = vec_insert.count();
+            }
+            case 1: {
+                // list:
+                auto l_it = l.begin();
+                // make the iterater point to the middle
+                for (int i = 0; i <= l.size() / 2; i++)
+                {
+                    l_it++;
+                }
+                l.insert(l_it, TESTCODE);
+                // End timing
+                auto end = high_resolution_clock::now();
+                // Calculate duration
+                auto lst_insert = duration_cast<nanoseconds>(end - start);
+                results[2][i] = lst_insert.count();
+            }
+            case 2: {
+                // set:
+                // Start timing
+                auto start = high_resolution_clock::now();
+                s.insert(TESTCODE); // into the set
+                // End timing
+                auto end = high_resolution_clock::now();
+                // Calculate duration
+                auto set_insert = duration_cast<nanoseconds>(end - start);
+                results[2][i] = set_insert.count();
+            }
+        }
     }
-    v.insert(v_it, TESTCODE);
-    // End timing
-    end = high_resolution_clock::now();
-    // Calculate duration
-    auto vec_insert = duration_cast<nanoseconds>(end - start);
-
-    // list:
-    // Start timing
-    start = high_resolution_clock::now();
-    auto l_it = l.begin();
-    // make the iterater point to the middle
-    for (int i = 0; i <= l.size() / 2; i++)
-    {
-        l_it++;
-    }
-    l.insert(l_it, TESTCODE);
-    // End timing
-    end = high_resolution_clock::now();
-    // Calculate duration
-    auto lst_insert = duration_cast<nanoseconds>(end - start);
-    
-    // set:
-    // Start timing
-    start = high_resolution_clock::now();
-    s.insert(TESTCODE); // into the set
-    // End timing
-    end = high_resolution_clock::now();
-    // Calculate duration
-    auto set_insert = duration_cast<nanoseconds>(end - start);
     
     //DELETING
     // vector:
