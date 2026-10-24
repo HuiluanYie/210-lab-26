@@ -14,84 +14,96 @@ using namespace std::chrono;
 
 const string TESTCODE = "TESTCODE";
 const int W = 10;
+const int ROWS = 4, COLS = 3;
 
 int main() {
     // declaration
+    int results[ROWS][COLS];
     string t;
     vector<string> v;
     list<string> l;
     set<string> s;
+    string file = "names.txt";
 
     cout << setw(W) << "Operations" << setw(W) << "Vector" << setw(W) << "List" << setw(W) << "Set" << endl;
     cout << setw(W) << "READING";
     //READING
-    // file input
-    ifstream fin;
-    fin.open("codes.txt");
-    // vector:
-    if (fin.good()) {
-        // Start timing
-        auto start = high_resolution_clock::now();
-        while (getline(fin, t)) {
-            v.push_back(t);
-        }
-        // End timing
-        auto end = high_resolution_clock::now();
-        // Calculate duration
-        auto vec_read = duration_cast<nanoseconds>(end - start);
-        cout << setw(W) << vec_read.count();
-        fin.close();
-    } 
-    else
+    for (int i = 0; i < COLS; i++)
     {
-        cout << "File not found.\n";
-        return 1;
-    }
-        
-    // list:
-    fin.open("codes.txt");
-    if (fin.good())
-    {
-        // Start timing
-        auto start = high_resolution_clock::now();
-        while (getline(fin, t)) {
-            l.push_back(t);
-        }
-        // End timing
-        auto end = high_resolution_clock::now();
-        // Calculate duration
-        auto lst_read = duration_cast<nanoseconds>(end - start);
-        cout << setw(W) << lst_read.count();
-        fin.close();
-    } 
-    else
-    {
-        cout << "File not found.\n";
-        return 1;
-    }
+        /* code */
 
-    // set:
-    fin.open("codes.txt");
-    if (fin.good())
-    {
-        // Start timing
-        auto start = high_resolution_clock::now();
-        while (getline(fin, t)) {
-            s.insert(t);
-        }
-        // End timing
-        auto end = high_resolution_clock::now();
-        // Calculate duration
-        auto set_read = duration_cast<nanoseconds>(end - start);
-        cout << setw(W) << set_read.count() << endl;
-        fin.close();
-    } 
-    else
-    {
-        cout << "File not found.\n";
-        return 1;
-    }
+    
+        // file input
+        ifstream fin;
+        fin.open(file);
         
+        if (fin.good()) {
+            switch(i) {
+            case 0: 
+            // vector:
+            // Start timing
+            auto start = high_resolution_clock::now();
+            while (getline(fin, t)) {
+                v.push_back(t);
+            }
+            // End timing
+            auto end = high_resolution_clock::now();
+            // Calculate duration
+            auto vec_read = duration_cast<nanoseconds>(end - start);
+            cout << setw(W) << vec_read.count();
+            fin.close();
+        } 
+        else
+        {
+            cout << "File not found.\n";
+            return 1;
+        }
+            
+        // list:
+        fin.open(file);
+        if (fin.good())
+        {
+            // Start timing
+            auto start = high_resolution_clock::now();
+            while (getline(fin, t)) {
+                l.push_back(t);
+            }
+            // End timing
+            auto end = high_resolution_clock::now();
+            // Calculate duration
+            auto lst_read = duration_cast<nanoseconds>(end - start);
+            cout << setw(W) << lst_read.count();
+            fin.close();
+        } 
+        else
+        {
+            cout << "File not found.\n";
+            return 1;
+        }
+
+        // set:
+        fin.open(file);
+        if (fin.good())
+        {
+            // Start timing
+            auto start = high_resolution_clock::now();
+            while (getline(fin, t)) {
+                s.insert(t);
+            }
+            // End timing
+            auto end = high_resolution_clock::now();
+            // Calculate duration
+            auto set_read = duration_cast<nanoseconds>(end - start);
+            cout << setw(W) << set_read.count() << endl;
+            fin.close();
+        } 
+        else
+        {
+            cout << "File not found.\n";
+            return 1;
+        }
+
+    }        
     //SORTING
     // vector:
     // Start timing
