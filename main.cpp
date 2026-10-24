@@ -20,7 +20,7 @@ const int EXPERIMENTS = 15;
 
 int main() {
     // declaration
-    int results[SLICES][ROWS][COLS];
+    int results[SLICES][ROWS][COLS] = {};
     string file = "names.txt";
 
     for (int e = 0; e < EXPERIMENTS ; e++)
@@ -235,7 +235,7 @@ int main() {
     for (int i = 0; i < ROWS; i++) {
         cout << setw(W) << labels[i];
         for (int j = 0; j < COLS; j++) 
-            cout << setw(W) << results[1][i][j];
+            cout << setw(W) << results[1][i][j] / EXPERIMENTS;
         cout << endl;
     }
     return 0;
