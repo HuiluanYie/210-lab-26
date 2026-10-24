@@ -21,14 +21,14 @@ const int EXPERIMENTS = 15;
 int main() {
     // declaration
     int results[SLICES][ROWS][COLS];
-    string t;
-    vector<string> v;
-    list<string> l;
-    set<string> s;
     string file = "names.txt";
 
     for (int e = 0; e < EXPERIMENTS ; e++)
     {
+        string t;
+        vector<string> v;
+        list<string> l;
+        set<string> s;
         //READING
         for (int i = 0; i < COLS; i++)
         {
@@ -220,10 +220,10 @@ int main() {
                     break;
                 }
             }
-            for (int r = 0; r < ROWS; r++) {
-                for (int c = 0; c < COLS; c++) {
-                    results[1][r][c] += results[0][r][c];
-                }
+        }
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLS; c++) {
+                results[1][r][c] += results[0][r][c];
             }
         }
     }
