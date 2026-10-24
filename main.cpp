@@ -48,7 +48,7 @@ int main() {
                         // End timing
                         auto end = high_resolution_clock::now();
                         // Calculate duration
-                        auto vec_read = duration_cast<nanoseconds>(end - start);
+                        auto vec_read = duration_cast<microseconds>(end - start);
                         results[0][0][i] = vec_read.count();
                         break;
                     }
@@ -62,7 +62,7 @@ int main() {
                         // End timing
                         auto end = high_resolution_clock::now();
                         // Calculate duration
-                        auto lst_read = duration_cast<nanoseconds>(end - start);
+                        auto lst_read = duration_cast<microseconds>(end - start);
                         results[0][0][i] = lst_read.count();
                         break;
                     }
@@ -76,7 +76,7 @@ int main() {
                         // End timing
                         auto end = high_resolution_clock::now();
                         // Calculate duration
-                        auto set_read = duration_cast<nanoseconds>(end - start);
+                        auto set_read = duration_cast<microseconds>(end - start);
                         results[0][0][i] = set_read.count();
                         break;
                     }
@@ -102,7 +102,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto vec_sort = duration_cast<nanoseconds>(end - start);
+                    auto vec_sort = duration_cast<microseconds>(end - start);
                     results[0][1][i] = vec_sort.count();
                     break;
                 }
@@ -112,7 +112,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto lst_sort = duration_cast<nanoseconds>(end - start);
+                    auto lst_sort = duration_cast<microseconds>(end - start);
                     results[0][1][i] = lst_sort.count();
                     break;
                 }
@@ -138,7 +138,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto vec_insert = duration_cast<nanoseconds>(end - start);
+                    auto vec_insert = duration_cast<microseconds>(end - start);
                     results[0][2][i] = vec_insert.count();
                     break;
                 }
@@ -154,7 +154,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto lst_insert = duration_cast<nanoseconds>(end - start);
+                    auto lst_insert = duration_cast<microseconds>(end - start);
                     results[0][2][i] = lst_insert.count();
                     break;
                 }
@@ -164,7 +164,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto set_insert = duration_cast<nanoseconds>(end - start);
+                    auto set_insert = duration_cast<microseconds>(end - start);
                     results[0][2][i] = set_insert.count();
                     break;
                 }
@@ -183,7 +183,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto vec_del = duration_cast<nanoseconds>(end - start);
+                    auto vec_del = duration_cast<microseconds>(end - start);
                     results[0][3][i] = vec_del.count();
                     break;
                 }
@@ -199,7 +199,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto lst_del = duration_cast<nanoseconds>(end - start);
+                    auto lst_del = duration_cast<microseconds>(end - start);
                     results[0][3][i] = lst_del.count();
                     break;
                 }
@@ -215,7 +215,7 @@ int main() {
                     // End timing
                     auto end = high_resolution_clock::now();
                     // Calculate duration
-                    auto set_del = duration_cast<nanoseconds>(end - start);
+                    auto set_del = duration_cast<microseconds>(end - start);
                     results[0][3][i] = set_del.count();
                     break;
                 }
@@ -228,7 +228,7 @@ int main() {
         }
     }
 
-    // Output the table of duration in nanoseconds
+    // Output the table of duration in microseconds
     string labels[] = {"Read", "Sort", "Insert", "Delete"};
     cout << setw(W) << "Operations" << setw(W) << "Vector" << setw(W) 
          << "List" << setw(W) << "Set" << endl;
