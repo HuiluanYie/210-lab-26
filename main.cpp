@@ -17,10 +17,15 @@ const int W = 10;
 const int ROWS = 4, COLS = 3;
 const int SLICES = 2;
 const int EXPERIMENTS = 15;
+const int CURRENT = 0;
+const int TOTAL = 1;
+// results[CURRENT] stores the the results for that particular run of the model
+// results[TOTAL] hold accumulator variables that continually sum their counterparts
 
 int main() {
     // declaration
-    int results[SLICES][ROWS][COLS] = {};
+    int results[SLICES][ROWS][COLS] = {}; // initialize to clear anything
+                                            // preveously in memory
     string file = "names.txt";
 
     for (int e = 0; e < EXPERIMENTS ; e++)
@@ -49,7 +54,7 @@ int main() {
                         auto end = high_resolution_clock::now();
                         // Calculate duration
                         auto vec_read = duration_cast<microseconds>(end - start);
-                        results[0][0][i] = vec_read.count();
+                        results[CURRENT][0][i] = vec_read.count();
                         break;
                     }
                     case 1: {
@@ -63,7 +68,7 @@ int main() {
                         auto end = high_resolution_clock::now();
                         // Calculate duration
                         auto lst_read = duration_cast<microseconds>(end - start);
-                        results[0][0][i] = lst_read.count();
+                        results[CURRENT][0][i] = lst_read.count();
                         break;
                     }
                     case 2: {
@@ -77,7 +82,7 @@ int main() {
                         auto end = high_resolution_clock::now();
                         // Calculate duration
                         auto set_read = duration_cast<microseconds>(end - start);
-                        results[0][0][i] = set_read.count();
+                        results[CURRENT][0][i] = set_read.count();
                         break;
                     }
                 }
@@ -103,7 +108,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto vec_sort = duration_cast<microseconds>(end - start);
-                    results[0][1][i] = vec_sort.count();
+                    results[CURRENT][1][i] = vec_sort.count();
                     break;
                 }
                 case 1: {
@@ -113,13 +118,13 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto lst_sort = duration_cast<microseconds>(end - start);
-                    results[0][1][i] = lst_sort.count();
+                    results[CURRENT][1][i] = lst_sort.count();
                     break;
                 }
                 case 2: {
                     // set:
                     // the set's value is 0 since a set is already sorted.
-                    results[0][1][i] = 0;
+                    results[CURRENT][1][i] = 0;
                     break;
                 }
             }
@@ -139,7 +144,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto vec_insert = duration_cast<microseconds>(end - start);
-                    results[0][2][i] = vec_insert.count();
+                    results[CURRENT][2][i] = vec_insert.count();
                     break;
                 }
                 case 1: {
@@ -155,7 +160,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto lst_insert = duration_cast<microseconds>(end - start);
-                    results[0][2][i] = lst_insert.count();
+                    results[CURRENT][2][i] = lst_insert.count();
                     break;
                 }
                 case 2: {
@@ -165,7 +170,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto set_insert = duration_cast<microseconds>(end - start);
-                    results[0][2][i] = set_insert.count();
+                    results[CURRENT][2][i] = set_insert.count();
                     break;
                 }
             }
@@ -184,7 +189,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto vec_del = duration_cast<microseconds>(end - start);
-                    results[0][3][i] = vec_del.count();
+                    results[CURRENT][3][i] = vec_del.count();
                     break;
                 }
                 case 1: {
@@ -200,7 +205,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto lst_del = duration_cast<microseconds>(end - start);
-                    results[0][3][i] = lst_del.count();
+                    results[CURRENT][3][i] = lst_del.count();
                     break;
                 }
                 case 2: {
@@ -216,27 +221,27 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto set_del = duration_cast<microseconds>(end - start);
-                    results[0][3][i] = set_del.count();
+                    results[CURRENT][3][i] = set_del.count();
                     break;
                 }
             }
         }
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
-                results[1][r][c] += results[0][r][c];
+                results[TOTAL][r][c] += results[CURRENT][r][c];
             }
         }
     }
 
     cout << "Number of simulations: " << EXPERIMENTS << '\n';
-    // Output the table of duration in microseconds
+    // Output the table of duration in microseconds (number too big in nanoseconds)
     string labels[] = {"Read", "Sort", "Insert", "Delete"};
     cout << setw(W) << "Operations" << setw(W) << "Vector" << setw(W) 
          << "List" << setw(W) << "Set" << endl;
     for (int i = 0; i < ROWS; i++) {
         cout << setw(W) << labels[i];
         for (int j = 0; j < COLS; j++) 
-            cout << setw(W) << results[1][i][j] / EXPERIMENTS;
+            cout << setw(W) << results[TOTAL][i][j] / EXPERIMENTS;
         cout << endl;
     }
     return 0;
