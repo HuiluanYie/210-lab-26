@@ -53,6 +53,7 @@ int main() {
             cout << setw(W) << vec_read.count();
             fin.close();
         } 
+
         else
         {
             cout << "File not found.\n";
