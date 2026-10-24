@@ -130,13 +130,7 @@ int main() {
         switch(i) {
             case 0: {
                 // vector:
-                auto v_it = v.begin();
-                // make the iterater point to the middle
-                for (int i = 0; i <= v.size() / 2; i++)
-                {
-                    v_it++;
-                }
-                v.insert(v_it, TESTCODE);
+                v.insert(v.begin() + v.size() / 2, TESTCODE);
                 // End timing
                 auto end = high_resolution_clock::now();
                 // Calculate duration
@@ -148,7 +142,7 @@ int main() {
                 // list:
                 auto l_it = l.begin();
                 // make the iterater point to the middle
-                for (int i = 0; i <= l.size() / 2; i++)
+                for (int j = 0; j < l.size() / 2; j++)
                 {
                     l_it++;
                 }
@@ -193,7 +187,7 @@ int main() {
                 // list:
                 auto l_it = l.begin();
                 // make the iterater point to the middle
-                for (int i = 0; i <= l.size() / 2; i++)
+                for (int j = 0; j < l.size() / 2; j++)
                 {
                     l_it++;
                 }
@@ -209,7 +203,7 @@ int main() {
                 // set:
                 auto s_it = s.begin();
                 // make the iterater point to the middle
-                for (int i = 0; i <= s.size() / 2; i++)
+                for (int j = 0; j < s.size() / 2; j++)
                 {
                     s_it++;
                 }
@@ -228,7 +222,7 @@ int main() {
     string labels[] = {"Read", "Sort", "Insert", "Delete"};
     cout << setw(W) << "Operations" << setw(W) << "Vector" << setw(W) 
          << "List" << setw(W) << "Set" << endl;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < ROWS; i++) {
         cout << setw(W) << labels[i];
         for (int j = 0; j < COLS; j++) 
             cout << setw(W) << results[i][j];
