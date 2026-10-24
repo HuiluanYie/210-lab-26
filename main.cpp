@@ -27,7 +27,7 @@ int main() {
     set<string> s;
     string file = "names.txt";
 
-    for (int i = 0; i < EXPERIMENTS ; i++)
+    for (int e = 0; e < EXPERIMENTS ; e++)
     {
         //READING
         for (int i = 0; i < COLS; i++)
@@ -49,7 +49,7 @@ int main() {
                         auto end = high_resolution_clock::now();
                         // Calculate duration
                         auto vec_read = duration_cast<nanoseconds>(end - start);
-                        results[0][i] = vec_read.count();
+                        results[0][0][i] = vec_read.count();
                         break;
                     }
                     case 1: {
@@ -63,7 +63,7 @@ int main() {
                         auto end = high_resolution_clock::now();
                         // Calculate duration
                         auto lst_read = duration_cast<nanoseconds>(end - start);
-                        results[0][i] = lst_read.count();
+                        results[0][0][i] = lst_read.count();
                         break;
                     }
                     case 2: {
@@ -77,7 +77,7 @@ int main() {
                         auto end = high_resolution_clock::now();
                         // Calculate duration
                         auto set_read = duration_cast<nanoseconds>(end - start);
-                        results[0][i] = set_read.count();
+                        results[0][0][i] = set_read.count();
                         break;
                     }
                 }
@@ -103,7 +103,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto vec_sort = duration_cast<nanoseconds>(end - start);
-                    results[1][i] = vec_sort.count();
+                    results[0][1][i] = vec_sort.count();
                     break;
                 }
                 case 1: {
@@ -113,13 +113,13 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto lst_sort = duration_cast<nanoseconds>(end - start);
-                    results[1][i] = lst_sort.count();
+                    results[0][1][i] = lst_sort.count();
                     break;
                 }
                 case 2: {
                     // set:
                     // the set's value is -1 since a set is already sorted.
-                    results[1][i] = -1;
+                    results[0][1][i] = -1;
                     break;
                 }
             }
@@ -139,7 +139,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto vec_insert = duration_cast<nanoseconds>(end - start);
-                    results[2][i] = vec_insert.count();
+                    results[0][2][i] = vec_insert.count();
                     break;
                 }
                 case 1: {
@@ -155,7 +155,7 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto lst_insert = duration_cast<nanoseconds>(end - start);
-                    results[2][i] = lst_insert.count();
+                    results[0][2][i] = lst_insert.count();
                     break;
                 }
                 case 2: {
@@ -165,62 +165,65 @@ int main() {
                     auto end = high_resolution_clock::now();
                     // Calculate duration
                     auto set_insert = duration_cast<nanoseconds>(end - start);
-                    results[2][i] = set_insert.count();
+                    results[0][2][i] = set_insert.count();
                     break;
                 }
             }
         }
         
         //DELETING
-        for (int i = 0; i < COLS; i++)/* code */
-    }
-    
-    
-    {
-        // Start timing
-        auto start = high_resolution_clock::now();
-        switch(i) {
-            case 0: {
-                // vector:
-                v.erase(v.begin() + v.size() / 2);
-                // End timing
-                auto end = high_resolution_clock::now();
-                // Calculate duration
-                auto vec_del = duration_cast<nanoseconds>(end - start);
-                results[3][i] = vec_del.count();
-                break;
-            }
-            case 1: {
-                // list:
-                auto l_it = l.begin();
-                // make the iterater point to the middle
-                for (int j = 0; j < l.size() / 2; j++)
-                {
-                    l_it++;
+        for (int i = 0; i < COLS; i++)
+        {
+            // Start timing
+            auto start = high_resolution_clock::now();
+            switch(i) {
+                case 0: {
+                    // vector:
+                    v.erase(v.begin() + v.size() / 2);
+                    // End timing
+                    auto end = high_resolution_clock::now();
+                    // Calculate duration
+                    auto vec_del = duration_cast<nanoseconds>(end - start);
+                    results[0][3][i] = vec_del.count();
+                    break;
                 }
-                l.erase(l_it);
-                // End timing
-                auto end = high_resolution_clock::now();
-                // Calculate duration
-                auto lst_del = duration_cast<nanoseconds>(end - start);
-                results[3][i] = lst_del.count();
-                break;
-            }
-            case 2: {
-                // set:
-                auto s_it = s.begin();
-                // make the iterater point to the middle
-                for (int j = 0; j < s.size() / 2; j++)
-                {
-                    s_it++;
+                case 1: {
+                    // list:
+                    auto l_it = l.begin();
+                    // make the iterater point to the middle
+                    for (int j = 0; j < l.size() / 2; j++)
+                    {
+                        l_it++;
+                    }
+                    l.erase(l_it);
+                    // End timing
+                    auto end = high_resolution_clock::now();
+                    // Calculate duration
+                    auto lst_del = duration_cast<nanoseconds>(end - start);
+                    results[0][3][i] = lst_del.count();
+                    break;
                 }
-                s.erase(s_it);
-                // End timing
-                auto end = high_resolution_clock::now();
-                // Calculate duration
-                auto set_del = duration_cast<nanoseconds>(end - start);
-                results[3][i] = set_del.count();
-                break;
+                case 2: {
+                    // set:
+                    auto s_it = s.begin();
+                    // make the iterater point to the middle
+                    for (int j = 0; j < s.size() / 2; j++)
+                    {
+                        s_it++;
+                    }
+                    s.erase(s_it);
+                    // End timing
+                    auto end = high_resolution_clock::now();
+                    // Calculate duration
+                    auto set_del = duration_cast<nanoseconds>(end - start);
+                    results[0][3][i] = set_del.count();
+                    break;
+                }
+            }
+            for (int r = 0; r < ROWS; r++) {
+                for (int c = 0; c < COLS; c++) {
+                    results[1][r][c] += results[0][r][c];
+                }
             }
         }
     }
@@ -232,7 +235,7 @@ int main() {
     for (int i = 0; i < ROWS; i++) {
         cout << setw(W) << labels[i];
         for (int j = 0; j < COLS; j++) 
-            cout << setw(W) << results[i][j];
+            cout << setw(W) << results[1][i][j];
         cout << endl;
     }
     return 0;
