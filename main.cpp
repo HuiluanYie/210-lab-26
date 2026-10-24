@@ -30,72 +30,55 @@ int main() {
     //READING
     for (int i = 0; i < COLS; i++)
     {
-        /* code */
-
-    
         // file input
         ifstream fin;
         fin.open(file);
         
         if (fin.good()) {
             switch(i) {
-            case 0: 
-            // vector:
-            // Start timing
-            auto start = high_resolution_clock::now();
-            while (getline(fin, t)) {
-                v.push_back(t);
+                case 0: {
+                    // vector:
+                    // Start timing
+                    auto start = high_resolution_clock::now();
+                    while (getline(fin, t)) {
+                        v.push_back(t);
+                    }
+                    // End timing
+                    auto end = high_resolution_clock::now();
+                    // Calculate duration
+                    auto vec_read = duration_cast<nanoseconds>(end - start);
+                    results[0][i] = vec_read.count();
+                    break;
+                }
+                case 1: {
+                    // list:
+                    // Start timing
+                    auto start = high_resolution_clock::now();
+                    while (getline(fin, t)) {
+                        l.push_back(t);
+                    }
+                    // End timing
+                    auto end = high_resolution_clock::now();
+                    // Calculate duration
+                    auto lst_read = duration_cast<nanoseconds>(end - start);
+                    results[0][i] = lst_read.count();
+                    break;
+                }
+                case 2: {
+                    // set:
+                    // Start timing
+                    auto start = high_resolution_clock::now();
+                    while (getline(fin, t)) {
+                        s.insert(t);
+                    }
+                    // End timing
+                    auto end = high_resolution_clock::now();
+                    // Calculate duration
+                    auto set_read = duration_cast<nanoseconds>(end - start);
+                    results[0][i] = set_read.count();
+                    break;
+                }
             }
-            // End timing
-            auto end = high_resolution_clock::now();
-            // Calculate duration
-            auto vec_read = duration_cast<nanoseconds>(end - start);
-            cout << setw(W) << vec_read.count();
-            fin.close();
-        } 
-
-        else
-        {
-            cout << "File not found.\n";
-            return 1;
-        }
-            
-        // list:
-        fin.open(file);
-        if (fin.good())
-        {
-            // Start timing
-            auto start = high_resolution_clock::now();
-            while (getline(fin, t)) {
-                l.push_back(t);
-            }
-            // End timing
-            auto end = high_resolution_clock::now();
-            // Calculate duration
-            auto lst_read = duration_cast<nanoseconds>(end - start);
-            cout << setw(W) << lst_read.count();
-            fin.close();
-        } 
-        else
-        {
-            cout << "File not found.\n";
-            return 1;
-        }
-
-        // set:
-        fin.open(file);
-        if (fin.good())
-        {
-            // Start timing
-            auto start = high_resolution_clock::now();
-            while (getline(fin, t)) {
-                s.insert(t);
-            }
-            // End timing
-            auto end = high_resolution_clock::now();
-            // Calculate duration
-            auto set_read = duration_cast<nanoseconds>(end - start);
-            cout << setw(W) << set_read.count() << endl;
             fin.close();
         } 
         else
@@ -103,30 +86,43 @@ int main() {
             cout << "File not found.\n";
             return 1;
         }
-
-    }        
-    //SORTING
-    // vector:
-    // Start timing
-    auto start = high_resolution_clock::now();
-    sort(v.begin(), v.end());
-    // End timing
-    auto end = high_resolution_clock::now();
-    // Calculate duration
-    auto vec_sort = duration_cast<nanoseconds>(end - start);
-
-    // list:
-    // Start timing
-    start = high_resolution_clock::now();
-    l.sort();
-    // End timing
-    end = high_resolution_clock::now();
-    // Calculate duration
-    auto lst_sort = duration_cast<nanoseconds>(end - start);
+    }
     
-    // set:
-    // the set's value is -1 since a set is already sorted.
-    auto set_sort = -1;
+    //SORTING
+    for (int i = 0; i < COLS; i++)
+    {
+        switch(i) {
+            case 0: {
+                // vector:
+                // Start timing
+                auto start = high_resolution_clock::now();
+                sort(v.begin(), v.end());
+                // End timing
+                auto end = high_resolution_clock::now();
+                // Calculate duration
+                auto vec_sort = duration_cast<nanoseconds>(end - start);
+                results[1][i] = vec_sort.count();
+                break;
+            }
+            case 1: {
+                // list:
+                // Start timing
+                start = high_resolution_clock::now();
+                l.sort();
+                // End timing
+                end = high_resolution_clock::now();
+                // Calculate duration
+                auto lst_sort = duration_cast<nanoseconds>(end - start);
+                results[1][i] = vec_sort.count();
+            }
+        
+
+        
+        
+        // set:
+        // the set's value is -1 since a set is already sorted.
+        results[1][i] = -1;
+    }
 
 
     //INSERTING
