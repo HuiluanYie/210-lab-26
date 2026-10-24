@@ -25,8 +25,6 @@ int main() {
     set<string> s;
     string file = "names.txt";
 
-    cout << setw(W) << "Operations" << setw(W) << "Vector" << setw(W) << "List" << setw(W) << "Set" << endl;
-    cout << setw(W) << "READING";
     //READING
     for (int i = 0; i < COLS; i++)
     {
@@ -91,11 +89,11 @@ int main() {
     //SORTING
     for (int i = 0; i < COLS; i++)
     {
+        // Start timing
+        auto start = high_resolution_clock::now();
         switch(i) {
             case 0: {
                 // vector:
-                // Start timing
-                auto start = high_resolution_clock::now();
                 sort(v.begin(), v.end());
                 // End timing
                 auto end = high_resolution_clock::now();
@@ -106,19 +104,19 @@ int main() {
             }
             case 1: {
                 // list:
-                // Start timing
-                auto start = high_resolution_clock::now();
                 l.sort();
                 // End timing
                 auto end = high_resolution_clock::now();
                 // Calculate duration
                 auto lst_sort = duration_cast<nanoseconds>(end - start);
                 results[1][i] = lst_sort.count();
+                break;
             }
             case 2: {
                 // set:
                 // the set's value is -1 since a set is already sorted.
                 results[1][i] = -1;
+                break;
             }
         }
     }
@@ -144,6 +142,7 @@ int main() {
                 // Calculate duration
                 auto vec_insert = duration_cast<nanoseconds>(end - start);
                 results[2][i] = vec_insert.count();
+                break;
             }
             case 1: {
                 // list:
@@ -159,66 +158,82 @@ int main() {
                 // Calculate duration
                 auto lst_insert = duration_cast<nanoseconds>(end - start);
                 results[2][i] = lst_insert.count();
+                break;
             }
             case 2: {
                 // set:
-                // Start timing
-                auto start = high_resolution_clock::now();
                 s.insert(TESTCODE); // into the set
                 // End timing
                 auto end = high_resolution_clock::now();
                 // Calculate duration
                 auto set_insert = duration_cast<nanoseconds>(end - start);
                 results[2][i] = set_insert.count();
+                break;
             }
         }
     }
     
     //DELETING
-    // vector:
-    // Start timing
-    start = high_resolution_clock::now();
-    v.erase(v.begin() + v.size() / 2);
-    // End timing
-    end = high_resolution_clock::now();
-    // Calculate duration
-    auto vec_del = duration_cast<nanoseconds>(end - start);
-
-    // list:
-    // Start timing
-    start = high_resolution_clock::now();
-    l_it = l.begin();
-    // make the iterater point to the middle
-    for (int i = 0; i <= l.size() / 2; i++)
+    for (int i = 0; i < COLS; i++)
     {
-        l_it++;
+        // Start timing
+        auto start = high_resolution_clock::now();
+        switch(i) {
+            case 0: {
+                // vector:
+                v.erase(v.begin() + v.size() / 2);
+                // End timing
+                auto end = high_resolution_clock::now();
+                // Calculate duration
+                auto vec_del = duration_cast<nanoseconds>(end - start);
+                results[3][i] = vec_del.count();
+                break;
+            }
+            case 1: {
+                // list:
+                auto l_it = l.begin();
+                // make the iterater point to the middle
+                for (int i = 0; i <= l.size() / 2; i++)
+                {
+                    l_it++;
+                }
+                l.erase(l_it);
+                // End timing
+                auto end = high_resolution_clock::now();
+                // Calculate duration
+                auto lst_del = duration_cast<nanoseconds>(end - start);
+                results[3][i] = lst_del.count();
+                break;
+            }
+            case 2: {
+                // set:
+                auto s_it = s.begin();
+                // make the iterater point to the middle
+                for (int i = 0; i <= s.size() / 2; i++)
+                {
+                    s_it++;
+                }
+                s.erase(s_it);
+                // End timing
+                auto end = high_resolution_clock::now();
+                // Calculate duration
+                auto set_del = duration_cast<nanoseconds>(end - start);
+                results[3][i] = set_del.count();
+                break;
+            }
+        }
     }
-    l.erase(l_it);
-    // End timing
-    end = high_resolution_clock::now();
-    // Calculate duration
-    auto lst_del = duration_cast<nanoseconds>(end - start);
-    
-    // set:
-    // Start timing
-    start = high_resolution_clock::now();
-    auto s_it = s.begin();
-    // make the iterater point to the middle
-    for (int i = 0; i <= s.size() / 2; i++)
-    {
-        s_it++;
-    }
-    s.erase(s_it);
-    // End timing
-    end = high_resolution_clock::now();
-    // Calculate duration
-    auto set_del = duration_cast<nanoseconds>(end - start);
 
     // Output the table of duration in nanoseconds
-    cout << setw(W) << "SORTING" << setw(W) << vec_sort.count() << setw(W) << lst_sort.count() << setw(W) << set_sort << endl;
-    cout << setw(W) << "INSERTING" << setw(W) << vec_insert.count() << setw(W) << lst_insert.count() << setw(W) << set_insert.count() << endl;
-    cout << setw(W) << "DELETING" << setw(W) << vec_del.count() << setw(W) << lst_del.count() << setw(W) << set_del.count() << endl;
-
+    string labels[] = {"Read", "Sort", "Insert", "Delete"};
+    cout << setw(W) << "Operations" << setw(W) << "Vector" << setw(W) 
+         << "List" << setw(W) << "Set" << endl;
+    for (int i = 0; i < 4; i++) {
+        cout << setw(W) << labels[i];
+        for (int j = 0; j < COLS; j++) 
+            cout << setw(W) << results[i][j];
+        cout << endl;
+    }
     return 0;
 }
 
