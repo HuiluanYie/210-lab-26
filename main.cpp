@@ -13,7 +13,7 @@ using namespace std;
 using namespace std::chrono;
 
 const string TESTCODE = "TESTCODE";
-const int W = 10;
+const int W = 20;
 const int ROWS = 4, COLS = 3;
 const int SLICES = 2;
 const int EXPERIMENTS = 15;
