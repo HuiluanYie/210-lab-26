@@ -13,7 +13,7 @@ using namespace std;
 using namespace std::chrono;
 
 const string TESTCODE = "TESTCODE";
-const int W = 20;
+const int W = 10;
 const int ROWS = 4, COLS = 3;
 const int SLICES = 2;
 const int EXPERIMENTS = 15;
@@ -118,8 +118,8 @@ int main() {
                 }
                 case 2: {
                     // set:
-                    // the set's value is -1 since a set is already sorted.
-                    results[0][1][i] = -1;
+                    // the set's value is 0 since a set is already sorted.
+                    results[0][1][i] = 0;
                     break;
                 }
             }
@@ -228,6 +228,7 @@ int main() {
         }
     }
 
+    cout << "Number of simulations: " << EXPERIMENTS << '\n';
     // Output the table of duration in microseconds
     string labels[] = {"Read", "Sort", "Insert", "Delete"};
     cout << setw(W) << "Operations" << setw(W) << "Vector" << setw(W) 
